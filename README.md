@@ -3,7 +3,7 @@
 By [Likun Cai](https://github.com/cailk), Yi Zhu, Zhi Zhang, Li Zhang, Mu Li, Xiangyang Xue.
 
 <div align="center">
-    <img src="figures/category_mapping.png" height="250px" />
+    <img src="./resources/category_mapping.png" height="250px" />
 </div>
 
 This repo is the official implementation of [BigDetection](http://arxiv.org/). It is based on [mmdetection](https://github.com/open-mmlab/mmdetection) and [CBNetV2](https://github.com/VDIGPKU/CBNetV2).
@@ -12,7 +12,7 @@ This repo is the official implementation of [BigDetection](http://arxiv.org/). I
 We construct a new large-scale benchmark termed *BigDetection*. Our goal is to simply leverage the training data from existing datasets ([LVIS](https://www.lvisdataset.org/), [OpenImages](https://storage.googleapis.com/openimages/web/index.html) and [Object365](https://www.objects365.org/overview.html)) with carefully designed principles, and curate a larger dataset for improved detector pre-training.
 
 
-![](./figures/bigdet_statistics.png)
+![](./resources/bigdet_statistics.png)
 
 
 ## Partial Results and Models
@@ -20,17 +20,15 @@ We construct a new large-scale benchmark termed *BigDetection*. Our goal is to s
 ### BigDetection Pretrained Models
 | Method | Lr Schd | mAP (bigdet val) | Model |Config |
 | --- | :---: | :---: | :---: | :---: |
-| YOLOv3 | 8x |  9.7 | - | [Config](configs/BigDetection/yolov3/BigDet_yolov3_d53_mstrain-608_8x.py) |
-| Deformable DETR | 8x | 13.1 | - | [Config](configs/BigDetection/deformable_detr/BigDet_deformable_detr_r50_16x2_8x.py) |
-| Faster R-CNN | 8x | 18.9 | - | [Config]() |
-| Faster R-CNN (FPN) | 8x | 19.4 | - | [Config]() |
-| CBNetV2 | 3e | - | - | [Config](configs/BigDetection/cbnetv2/BigDet_htc_cbv2_swin_base_giou_4conv1f.py) |
+| YOLOv3 | 8x |  9.7 | - | [Config](configs/BigDetection/yolov3/yolov3_d53_mstrain-608_8x_bigdet.py) |
+| Deformable DETR | 8x | 13.1 | - | [Config](configs/BigDetection/deformable_detr/deformable_detr_r50_16x2_8x_bigdet.py) |
+| CBNetV2 | 3e | - | - | [Config](configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_bigdet.py) |
 
 ### CBNetV2 Finetuned on COCO
 | Method | mAP (coco minival/test-dev) | Model |Config |
 | --- |  :---: | :---: | :---: |
-| CBNetV2-Swin-B | 59.1/59.5 | - | [Config](configs/cbnet/htc_cbv2_swin_base_patch4_window7_mstrain_400-1400_giou_4conv1f_adamw_20e_coco.py) |
-| CBNetV2-Swin-B (TTA) | 59.5/59.8 | - | [Config (test only)](configs/cbnet/htc_cbv2_swin_base_patch4_window7_mstrain_400-1400_giou_4conv1f_adamw_20e_coco_tta.py) |
+| CBNetV2-Swin-B | 59.1/59.5 | - | [Config](configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_20e_coco.py) |
+| CBNetV2-Swin-B (TTA) | 59.5/59.8 | - | [Config (test only)](configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_20e_coco_tta.py) |
 
 ### Notes
 - `TTA` denotes test time augmentation.
@@ -64,20 +62,6 @@ pip install -v -e .
 ### Data Preparation
 Our BigDetection involves 3 datasets and train/val data can be downloaded from their official website ([Objects365](https://www.objects365.org/download.html), [OpenImages v6](https://storage.googleapis.com/openimages/web/download.html), [LVIS v1.0](https://www.lvisdataset.org/dataset)). All datasets should be placed under $bigdetection/data/ as below. Contact us with [lkcai20@fudan.edu.cn](lkcai20@fudan.edu.cn) to get access to our pre-processed annotation files.
 ```
-data/
-  BigDetection
-    annotations/
-        bigdet_obj_train.json
-        bigdet_oid_train.json
-        bigdet_lvis_train.json
-        bigdet_val.json
-        cas_weights.json
-    train/
-      Objects365/
-      OpenImages/
-      LVIS/
-    val/
-
 bigdetection/data
 └── BigDetection
     ├── annotations
@@ -110,7 +94,7 @@ To train a detector with pre-trained models, run:
 tools/dist_train.sh <CONFIG_FILE> <GPU_NUM> 
 ```
 
-### Apex (optional)
+### Apex
 Following [Swin Transformer for Object Detection](https://github.com/SwinTransformer/Swin-Transformer-Object-Detection) and [CBNetV2](https://github.com/VDIGPKU/CBNetV2), we use apex for mixed precision training by default. To install apex, run:
 ```
 git clone https://github.com/NVIDIA/apex

@@ -1,64 +1,65 @@
-# Benchmark and Model Zoo
+# Model Zoo
 
-## CNN-based (w/ ImageNet-1k pretrained)
-### Faster R-CNN 
-| Backbone | Lr Schd | box mAP (minival) |  #params | FLOPs | config | log | model |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | 
-| DB-ResNet50 | 1x |  40.8 | 69M | 284G | [config](configs/cbnet/faster_rcnn_cbv2d1_r50_fpn_1x_coco.py) | [github](https://github.com/CBNetwork/storage/releases/download/v1.0.0/faster_rcnn_cbv2d1_r50_fpn_1x_coco.log.json)| [github](https://github.com/CBNetwork/storage/releases/download/v1.0.0/faster_rcnn_cbv2d1_r50_fpn_1x_coco.pth.zip)| 
+## BigDetection Pretrained Models
+| Method | mAP (bigdet val) | Links |
+| --- | :---: | :---: |
+| YOLOv3 | 9.7 | [model]()/[config](configs/BigDetection/yolov3/yolov3_d53_mstrain-608_8x_bigdet.py) |
+| Deformable DETR | 13.1 | [model]()/[config](configs/BigDetection/deformable_detr/deformable_detr_r50_16x2_8x_bigdet.py) |
+| Faster R-CNN (C4)\* | 18.9 | [model]() |
+| Faster R-CNN (FPN)\* | 19.4 | [model]() |
+| CenterNet2\* | 23.1 | [model]() |
+| Cascade R-CNN\* | 24.1 | [model]() |
+| CBNetV2 | - | [model]()/[config](configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_bigdet.py) |
 
+## COCO Finetuned Models
+| Method | mAP (coco minival/test-dev) | Links |
+| --- | :---: | :---: |
+| YOLOv3 | 30.5/- | [model]()/[config](configs/BigDetection/yolov3/yolov3_d53_mstrain-608_8x_bigdet.py) |
+| Deformable DETR | 39.9/- | [model]()/[config](configs/BigDetection/deformable_detr/deformable_detr_r50_16x2_8x_bigdet.py) |
+| Faster R-CNN (C4)\* | 38.8/- | [model]() |
+| Faster R-CNN (FPN)\* | 40.5/- | [model]() |
+| CenterNet2\* | 45.3/- | [model]() |
+| Cascade R-CNN\* | 45.1/- | [model]() |
+| CBNetV2-Swin-Base | 59.1/59.5 | [model]()/[config](configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_bigdet.py) |
+| CBNetV2-Swin-Base (TTA) | 59.5/59.8 | [model]()/[config](configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_bigdet.py) |
 
-### Cascade R-CNN (1600x1400)
-| Backbone | Lr Schd | box mAP (minival/test-dev)|  #params | FLOPs | config | model |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: | 
-| DB-Res2Net101-DCN | 20e |  53.7/- | 141M | 429G | [config](configs/cbnet/cascade_rcnn_cbv2d1_r2_101_mdconv_fpn_20e_fp16_ms400-1400_coco.py) | [github](https://github.com/CBNetwork/storage/releases/download/v1.0.0/cascade_rcnn_cbv2d1_r2_101_mdconv_fpn_20e_fp16_ms400-1400_coco.pth.zip)| 
-| DB-Res2Net101-DCN |  20e + 1x (swa) | 54.8/55.3 | 141M | 429G | [config (test only)](configs/cbnet/cascade_rcnn_cbv2d1_r2_101_mdconv_fpn_20e_fp16_ms400-1400_coco.py) | [github](https://github.com/CBNetwork/storage/releases/download/v1.0.0/cascade_rcnn_cbv2d1_r2_101_mdconv_fpn_20e_fp16_ms400-1400_coco_swa.pth.zip) | 
+### Notes:
 
-### Cascade R-CNN w/ 4conv1fc (1600x1400)
-| Backbone | Lr Schd | box mAP (minival/test-dev)|  #params | FLOPs | config | model |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: | 
-| DB-Res2Net101-DCN | 20e |  54.1/- | 146M | 774G | [config](configs/cbnet/cascade_rcnn_cbv2d1_r2_101_mdconv_fpn_20e_fp16_ms400-1400_giou_4conv1f_coco.py) | [github](https://github.com/CBNetwork/storage/releases/download/v1.0.0/cascade_rcnn_cbv2d1_r2_101_mdconv_fpn_20e_fp16_ms400-1400_giou_4conv1f_coco.pth.zip)| 
-| DB-Res2Net101-DCN |  20e + 1x (swa) | 55.3/55.6 | 146M | 774G | [config (test only)](configs/cbnet/cascade_rcnn_cbv2d1_r2_101_mdconv_fpn_20e_fp16_ms400-1400_giou_4conv1f_coco.py) | [github](https://github.com/CBNetwork/storage/releases/download/v1.0.0/cascade_rcnn_cbv2d1_r2_101_mdconv_fpn_20e_fp16_ms400-1400_giou_4conv1f_coco_swa.pth.zip) | 
+- The models following `*` are implemented on another detection codebase [Detectron2](https://github.com/facebookresearch/detectron2). Here we provide the pretrained checkpoints. The results can be reproduced following the installation of [CenterNet2](https://github.com/xingyizhou/CenterNet2) or [Detectron2](https://github.com/facebookresearch/detectron2).
+- Most of pretrained models are trained for `8X` schedule on BigDetection.
+- Pretrained models are finetuned for `1X` schedule on COCO.
 
+## Data Efficiency
+We followed [STAC](https://arxiv.org/abs/2005.04757) and [SoftTeacher](https://arxiv.org/abs/2106.09018) to evaluate on COCO data split for different partial annotation setting, and report the mAP performance. The results are shown in the following:
 
-**Notes**: 
-- For SWA training, please refer to [SWA Object Detection](https://github.com/hyz-xmaster/swa_object_detection)
+### 1% labeled data
+| Method | mAP | Links |
+| --- | :---: | :---: |
+| Baseline | 9.8 | - |
+| STAC | 14.0 | - |
+| SoftTeacher | 20.5 | - |
+| Ours | 25.3 | [model]() |
 
-## Transformer-based (w/ ImageNet-1k pretrained)
+### 2% labeled data
+| Method | mAP | Links |
+| --- | :---: | :---: |
+| Baseline | 14.3 | - |
+| STAC | 18.3 | - |
+| SoftTeacher | 26.5 | - |
+| Ours | 28.1 | [model]() |
 
-### Mask R-CNN
+### 5% labeled data
+| Method | mAP | Links |
+| --- | :---: | :---: |
+| Baseline | 21.2 | - |
+| STAC | 24.4 | - |
+| SoftTeacher | 30.7 | - |
+| Ours | 31.9 | [model]() |
 
-| Backbone |  Lr Schd | box mAP (minival) | mask mAP (minival) | #params | FLOPs | config | log | model |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | 
-| DB-Swin-T |  3x | 50.2 | 44.5 | 76M | 357G | [config](configs/cbnet/mask_rcnn_cbv2_swin_small_patch4_window7_mstrain_480-800_adamw_3x_coco.py) | [github](https://github.com/CBNetwork/storage/releases/download/v1.0.0/mask_rcnn_cbv2_swin_tiny_patch4_window7_mstrain_480-800_adamw_3x_coco.log.json)  | [github](https://github.com/CBNetwork/storage/releases/download/v1.0.0/mask_rcnn_cbv2_swin_tiny_patch4_window7_mstrain_480-800_adamw_3x_coco.pth.zip) |
-
-
-### Cascade Mask R-CNN w/ 4conv1fc
-| Backbone |  Lr Schd | box mAP (minival)| mask mAP (minival)| #params | FLOPs | config | log | model |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DB-Swin-T |  3x | 53.6 | 46.2 | 114M | 836G | [config](configs/cbnet/cascade_mask_rcnn_cbv2_swin_tiny_patch4_window7_mstrain_480-800_adamw_3x_coco.py) | [github](https://github.com/CBNetwork/storage/releases/download/v1.0.0/cascade_mask_rcnn_cbv2_swin_tiny_patch4_window7_mstrain_480-800_adamw_3x_coco.log.json) | [github](https://github.com/CBNetwork/storage/releases/download/v1.0.0/cascade_mask_rcnn_cbv2_swin_tiny_patch4_window7_mstrain_480-800_adamw_3x_coco.pth.zip) | 
-
-### Cascade Mask R-CNN w/ 4conv1fc (1600x1400)
-| Backbone | Lr Schd | box mAP (minival/test-dev)| mask mAP (minival/test-dev)| #params | FLOPs | config | model |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DB-Swin-S | 3x | 56.3/56.9 | 48.6/49.1 | 156M | 1016G | [config](configs/cbnet/cascade_mask_rcnn_cbv2_swin_small_patch4_window7_mstrain_400-1400_adamw_3x_coco.py) | [github](https://github.com/CBNetwork/storage/releases/download/v1.0.0/cascade_mask_rcnn_cbv2_swin_small_patch4_window7_mstrain_400-1400_adamw_3x_coco.pth.zip)| 
-
-## Transformer-based (w/ ImageNet-22k pretrained)
-### HTC (1600x1400)
-| Backbone | Lr Schd | box mAP (minival/test-dev) | mask mAP (minival/test-dev) | #params | FLOPs | config | model |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DB-Swin-B | 20e | 57.9/- | 50.2/- | 231M | 1004G | [config](configs/cbnet/htc_cbv2_swin_base_patch4_window7_mstrain_400-1400_adamw_20e_coco.py) | [github](https://github.com/CBNetwork/storage/releases/download/v1.0.0/htc_cbv2_swin_base22k_patch4_window7_mstrain_400-1400_adamw_20e_coco.pth.zip) |
-| DB-Swin-B | 20e + 1x (swa) | 58.2/58.6 | 50.4/51.1 | 231M | 1004G | [config (test only)](configs/cbnet/htc_cbv2_swin_base_patch4_window7_mstrain_400-1400_adamw_20e_coco.py) | [github](https://github.com/CBNetwork/storage/releases/download/v1.0.0/htc_cbv2_swin_base22k_patch4_window7_mstrain_400-1400_adamw_20e_coco_swa.pth.zip)| 
-
-### HTC (bbox head w/ 4conv1fc) (1600x1400)
-*Compared to regular HTC, our HTC uses 4conv1fc in bbox head.*
-| Backbone | Lr Schd | box mAP (minival/test-dev) | mask mAP (minival/test-dev) | #params | FLOPs | config | model |
-| :---: |:---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DB-Swin-B | 20e | 58.4/58.7 | 50.7/51.1 | 235M | 1348G | [config](configs/cbnet/htc_cbv2_swin_base_patch4_window7_mstrain_400-1400_giou_4conv1f_adamw_20e_coco.py) | [github](https://github.com/CBNetwork/storage/releases/download/v1.0.0/htc_cbv2_swin_base22k_patch4_window7_mstrain_400-1400_giou_4conv1f_adamw_20e_coco.pth.zip) |
-| DB-Swin-L | 1x | 59.1/59.4 | 51.0/51.6 | 453M | 2162G | [config](configs/cbnet/htc_cbv2_swin_large_patch4_window7_mstrain_400-1400_giou_4conv1f_adamw_1x_coco.py) | [github](https://github.com/CBNetwork/storage/releases/download/v1.0.0/htc_cbv2_swin_large22k_patch4_window7_mstrain_400-1400_giou_4conv1f_adamw_1x_coco.pth.zip) |
-| DB-Swin-L (TTA) |  1x | 59.6/60.1 | 51.8/52.3 | 453M | - | [config](configs/cbnet/htc_cbv2_swin_large_patch4_window7_mstrain_400-1400_giou_4conv1f_adamw_1x_coco.py) | [github](https://github.com/CBNetwork/storage/releases/download/v1.0.0/htc_cbv2_swin_large22k_patch4_window7_mstrain_400-1400_giou_4conv1f_adamw_1x_coco.pth.zip) |
-
-TTA denotes test time augmentation.
- 
-**Notes**: 
-
-- **Pre-trained models of Swin Transformer can be downloaded from [Swin Transformer for ImageNet Classification](https://github.com/microsoft/Swin-Transformer)**.
+### 10% labeled data
+| Method | mAP | Links |
+| --- | :---: | :---: |
+| Baseline | 26.2 | - |
+| STAC | 28.6 | - |
+| SoftTeacher | 34.0 | - |
+| Ours | 34.1 | [model]() |
