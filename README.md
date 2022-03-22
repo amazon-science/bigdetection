@@ -33,6 +33,7 @@ We construct a new large-scale benchmark termed *BigDetection*. Our goal is to s
 ### Notes
 - `TTA` denotes test time augmentation.
 - Pre-trained models of Swin Transformer can be downloaded from [Swin Transformer for ImageNet Classification](https://github.com/microsoft/Swin-Transformer).
+- More results and models can be found in [model zoo](./model_zoo.md).
 
 ## Getting Started
 
