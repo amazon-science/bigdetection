@@ -20,14 +20,14 @@ We construct a new large-scale benchmark termed *BigDetection*. Our goal is to s
 ### BigDetection Pretrained Models
 | Method | Lr Schd | mAP (bigdet val) | Model |Config |
 | --- | :---: | :---: | :---: | :---: |
-| YOLOv3 | 8x |  9.7 | - | [Config](configs/BigDetection/yolov3/yolov3_d53_mstrain-608_8x_bigdet.py) |
-| Deformable DETR | 8x | 13.1 | - | [Config](configs/BigDetection/deformable_detr/deformable_detr_r50_16x2_8x_bigdet.py) |
-| CBNetV2 | ~3e | 35.1 | - | [Config](configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_bigdet.py) |
+| YOLOv3 | 8x |  9.7 | - | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/mmdetection_cpts/yolov3_d53_bigdet_8x.pth)[Config](configs/BigDetection/yolov3/yolov3_d53_mstrain-608_8x_bigdet.py) |
+| Deformable DETR | 8x | 13.1 | - | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/mmdetection_cpts/deformable_detr_bigdet_8x.pth)[Config](configs/BigDetection/deformable_detr/deformable_detr_r50_16x2_8x_bigdet.py) |
+| CBNetV2 | ~3.5e | 35.1 | - | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/mmdetection_cpts/htc_cbv2_swin_base_giou_4conv1f_bigdet.pth)[Config](configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_bigdet.py) |
 
 ### CBNetV2 Finetuned on COCO
 | Method | mAP (coco minival/test-dev) | Model |Config |
 | --- |  :---: | :---: | :---: |
-| CBNetV2-Swin-B | 59.1/59.5 | - | [Config](configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_20e_coco.py) |
+| CBNetV2-Swin-B | 59.1/59.5 | - | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/mmdetection_cpts/htc_cbv2_swin_base_giou_4conv1f_bigdet_coco-ft_20e.pth)[Config](configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_20e_coco.py) |
 | CBNetV2-Swin-B (TTA) | 59.5/59.8 | - | [Config (test only)](configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_20e_coco_tta.py) |
 
 ### Notes
