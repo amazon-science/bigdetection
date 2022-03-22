@@ -9,12 +9,12 @@
 | Faster R-CNN (FPN)\* | 19.4 | [model]() |
 | CenterNet2\* | 23.1 | [model]() |
 | Cascade R-CNN\* | 24.1 | [model]() |
-| CBNetV2 | - | [model]()/[config](configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_bigdet.py) |
+| CBNetV2 | 35.1 | [model]()/[config](configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_bigdet.py) |
 
 ## COCO Finetuned Models
 | Method | mAP (coco minival/test-dev) | Links |
 | --- | :---: | :---: |
-| YOLOv3 | 30.5/- | [model]()/[config](configs/BigDetection/yolov3/yolov3_d53_mstrain-608_8x_bigdet.py) |
+| YOLOv3 | 30.5/- | [config](configs/BigDetection/yolov3/yolov3_d53_mstrain-608_8x_bigdet.py) |
 | Deformable DETR | 39.9/- | [model]()/[config](configs/BigDetection/deformable_detr/deformable_detr_r50_16x2_8x_bigdet.py) |
 | Faster R-CNN (C4)\* | 38.8/- | [model]() |
 | Faster R-CNN (FPN)\* | 40.5/- | [model]() |

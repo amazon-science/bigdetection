@@ -1,6 +1,6 @@
 # BigDetection: A Large-scale Benchmark for Improved Object Detector Pre-training
 
-By [Likun Cai](https://github.com/cailk), Yi Zhu, Zhi Zhang, Li Zhang, Mu Li, Xiangyang Xue.
+By [Likun Cai](https://github.com/cailk), Zhi Zhang, Yi Zhu, Li Zhang, Mu Li, Xiangyang Xue.
 
 <div align="center">
     <img src="./resources/category_mapping.png" height="250px" />
@@ -22,7 +22,7 @@ We construct a new large-scale benchmark termed *BigDetection*. Our goal is to s
 | --- | :---: | :---: | :---: | :---: |
 | YOLOv3 | 8x |  9.7 | - | [Config](configs/BigDetection/yolov3/yolov3_d53_mstrain-608_8x_bigdet.py) |
 | Deformable DETR | 8x | 13.1 | - | [Config](configs/BigDetection/deformable_detr/deformable_detr_r50_16x2_8x_bigdet.py) |
-| CBNetV2 | 3e | - | - | [Config](configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_bigdet.py) |
+| CBNetV2 | ~3e | 35.1 | - | [Config](configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_bigdet.py) |
 
 ### CBNetV2 Finetuned on COCO
 | Method | mAP (coco minival/test-dev) | Model |Config |
@@ -60,7 +60,7 @@ pip install -v -e .
 ```
 
 ### Data Preparation
-Our BigDetection involves 3 datasets and train/val data can be downloaded from their official website ([Objects365](https://www.objects365.org/download.html), [OpenImages v6](https://storage.googleapis.com/openimages/web/download.html), [LVIS v1.0](https://www.lvisdataset.org/dataset)). All datasets should be placed under $bigdetection/data/ as below. Contact us with [lkcai20@fudan.edu.cn](lkcai20@fudan.edu.cn) to get access to our pre-processed annotation files.
+Our BigDetection involves 3 datasets and train/val data can be downloaded from their official website ([Objects365](https://www.objects365.org/download.html), [OpenImages v6](https://storage.googleapis.com/openimages/web/download.html), [LVIS v1.0](https://www.lvisdataset.org/dataset)). All datasets should be placed under $bigdetection/data/ as below. The synsets (total 600 class names) of BigDetection dataset can be downloaded here: [bigdetection_synsets](https://drive.google.com/file/d/1XbzMia6NYmacIX60oU9h2xE99IkSI24F/view?usp=sharing). Contact us with [lkcai20@fudan.edu.cn](lkcai20@fudan.edu.cn) to get access to our pre-processed annotation files.
 ```
 bigdetection/data
 └── BigDetection
