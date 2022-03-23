@@ -2,9 +2,10 @@
 
 By [Likun Cai](https://github.com/cailk), Zhi Zhang, Yi Zhu, Li Zhang, Mu Li, Xiangyang Xue.
 
-<div align="center">
+<!-- <div align="center">
     <img src="./resources/bigdetection.png" height="250px" />
-</div>
+</div> -->
+![](./resources/bigdetection.png)
 
 This repo is the official implementation of [BigDetection](http://arxiv.org/). It is based on [mmdetection](https://github.com/open-mmlab/mmdetection) and [CBNetV2](https://github.com/VDIGPKU/CBNetV2).
 
