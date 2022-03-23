@@ -3,7 +3,7 @@
 By [Likun Cai](https://github.com/cailk), Zhi Zhang, Yi Zhu, Li Zhang, Mu Li, Xiangyang Xue.
 
 <div align="center">
-    <img src="./resources/category_mapping.png" height="250px" />
+    <img src="./resources/bigdetection.png" height="250px" />
 </div>
 
 This repo is the official implementation of [BigDetection](http://arxiv.org/). It is based on [mmdetection](https://github.com/open-mmlab/mmdetection) and [CBNetV2](https://github.com/VDIGPKU/CBNetV2).
@@ -11,9 +11,7 @@ This repo is the official implementation of [BigDetection](http://arxiv.org/). I
 ## Introduction
 We construct a new large-scale benchmark termed *BigDetection*. Our goal is to simply leverage the training data from existing datasets ([LVIS](https://www.lvisdataset.org/), [OpenImages](https://storage.googleapis.com/openimages/web/index.html) and [Object365](https://www.objects365.org/overview.html)) with carefully designed principles, and curate a larger dataset for improved detector pre-training.
 
-
 ![](./resources/bigdet_statistics.png)
-
 
 ## Partial Results and Models
 
