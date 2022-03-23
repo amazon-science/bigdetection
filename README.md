@@ -10,7 +10,7 @@ By [Likun Cai](https://github.com/cailk), Zhi Zhang, Yi Zhu, Li Zhang, Mu Li, Xi
 This repo is the official implementation of [BigDetection](http://arxiv.org/). It is based on [mmdetection](https://github.com/open-mmlab/mmdetection) and [CBNetV2](https://github.com/VDIGPKU/CBNetV2).
 
 ## Introduction
-We construct a new large-scale benchmark termed *BigDetection*. Our goal is to simply leverage the training data from existing datasets ([LVIS](https://www.lvisdataset.org/), [OpenImages](https://storage.googleapis.com/openimages/web/index.html) and [Object365](https://www.objects365.org/overview.html)) with carefully designed principles, and curate a larger dataset for improved detector pre-training.
+We construct a new large-scale benchmark termed *BigDetection*. Our goal is to simply leverage the training data from existing datasets ([LVIS](https://www.lvisdataset.org/), [OpenImages](https://storage.googleapis.com/openimages/web/index.html) and [Object365](https://www.objects365.org/overview.html)) with carefully designed principles, and curate a larger dataset for improved detector pre-training. BigDetection dataset has 600 object categories and contains 3.4M training images with 36M object bounding boxes. We show some important statistics in the following figure. *Left*: Number of images per category of BigDetection. BigDetection have 555 frequent categories (black line) out of 600, which means it suffers less from long-tail problem. *Right*: Number of instances in different object sizes. We find that OpenImages and Objects365 are biased towards certain scale, while BigDetection is balanced across object scales..
 
 ![](./resources/bigdet_statistics.png)
 
