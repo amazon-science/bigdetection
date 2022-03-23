@@ -2,38 +2,65 @@
 
 By [Likun Cai](https://github.com/cailk), Zhi Zhang, Yi Zhu, Li Zhang, Mu Li, Xiangyang Xue.
 
-<div align="center">
-    <img src="./resources/category_mapping.png" height="250px" />
-</div>
+<!-- <div align="center">
+    <img src="./resources/bigdetection.png" height="250px" />
+</div> -->
+![](./resources/bigdetection.png)
 
 This repo is the official implementation of [BigDetection](http://arxiv.org/). It is based on [mmdetection](https://github.com/open-mmlab/mmdetection) and [CBNetV2](https://github.com/VDIGPKU/CBNetV2).
 
 ## Introduction
-We construct a new large-scale benchmark termed *BigDetection*. Our goal is to simply leverage the training data from existing datasets ([LVIS](https://www.lvisdataset.org/), [OpenImages](https://storage.googleapis.com/openimages/web/index.html) and [Object365](https://www.objects365.org/overview.html)) with carefully designed principles, and curate a larger dataset for improved detector pre-training.
-
+We construct a new large-scale benchmark termed *BigDetection*. Our goal is to simply leverage the training data from existing datasets ([LVIS](https://www.lvisdataset.org/), [OpenImages](https://storage.googleapis.com/openimages/web/index.html) and [Object365](https://www.objects365.org/overview.html)) with carefully designed principles, and curate a larger dataset for improved detector pre-training. BigDetection dataset has 600 object categories and contains 3.4M training images with 36M object bounding boxes. We show some important statistics of BigDetection in the following figure.
 
 ![](./resources/bigdet_statistics.png)
+*Left*: Number of images per category of BigDetection. *Right*: Number of instances in different object sizes. 
 
+## Results and Models
 
-## Partial Results and Models
+### BigDetection Validation
+We show the evaluation results on BigDetection Validation. We hope BigDetection could serve as a new challenging benchmark for evaluating next-level object detection methods.
 
-### BigDetection Pretrained Models
-| Method | mAP (bigdet val) |Links |
+| Method | mAP (bigdet val) | Links |
 | --- | :---: | :---: |
-| YOLOv3 |  9.7 | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/mmdetection_cpts/yolov3_d53_bigdet_8x.pth)/[config](configs/BigDetection/yolov3/yolov3_d53_mstrain-608_8x_bigdet.py) |
+| YOLOv3 | 9.7 | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/mmdetection_cpts/yolov3_d53_bigdet_8x.pth)/[config](configs/BigDetection/yolov3/yolov3_d53_mstrain-608_8x_bigdet.py) |
 | Deformable DETR | 13.1 | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/mmdetection_cpts/deformable_detr_bigdet_8x.pth)/[config](configs/BigDetection/deformable_detr/deformable_detr_r50_16x2_8x_bigdet.py) |
-| CBNetV2 | 35.1 | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/mmdetection_cpts/htc_cbv2_swin_base_giou_4conv1f_bigdet.pth)/[config](configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_bigdet.py) |
+| Faster R-CNN (C4)\* | 18.9 | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/detectron2_cpts/faster_rcnn_r50_c4_bigdet_8x.pth) |
+| Faster R-CNN (FPN)\* | 19.4 | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/detectron2_cpts/faster_rcnn_r50_fpn_bigdet_8x.pth) |
+| CenterNet2\* | 23.1 | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/detectron2_cpts/centernet2_r50_bigdet_8x.pth) |
+| Cascade R-CNN\* | 24.1 | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/detectron2_cpts/crcnn_r50_bigdet_8x.pth) |
+| CBNetV2-Swin-Base | 35.1 | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/mmdetection_cpts/htc_cbv2_swin_base_giou_4conv1f_bigdet.pth)/[config](configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_bigdet.py) |
 
-### CBNetV2 Finetuned on COCO
-| Method | mAP (coco minival/test-dev) | Link |
-| --- |  :---: | :---: |
-| CBNetV2-Swin-B | 59.1/59.5 | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/mmdetection_cpts/htc_cbv2_swin_base_giou_4conv1f_bigdet_coco-ft_20e.pth)/[config](configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_20e_coco.py) |
-| CBNetV2-Swin-B (TTA) | 59.5/59.8 | [config (test only)](configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_20e_coco_tta.py) |
+### COCO Validation
+We show the finetuning performance on COCO minival/test-dev. Results show that BigDetection pre-training provides significant benefits for different detector architectures. We achieve 59.8 mAP on COCO test-dev with a single model.
+
+| Method | mAP (coco minival/test-dev) | Links |
+| --- | :---: | :---: |
+| YOLOv3 | 30.5/- | [config](configs/BigDetection/yolov3/yolov3_d53_mstrain-608_8x_bigdet.py) |
+| Deformable DETR | 39.9/- | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/mmdetection_cpts/deformable_detr_bigdet_coco-ft_1x.pth)/[config](configs/BigDetection/deformable_detr/deformable_detr_r50_16x2_8x_bigdet.py) |
+| Faster R-CNN (C4)\* | 38.8/- | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/detectron2_cpts/faster_rcnn_r50_c4_bigdet_coco-ft_1x.pth) |
+| Faster R-CNN (FPN)\* | 40.5/- | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/detectron2_cpts/faster_rcnn_r50_fpn_bigdet_coco-ft_1x.pth) |
+| CenterNet2\* | 45.3/- | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/detectron2_cpts/centernet2_r50_bigdet_coco-ft_1x.pth) |
+| Cascade R-CNN\* | 45.1/- | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/detectron2_cpts/crcnn_r50_bigdet_coco-ft_1x.pth) |
+| CBNetV2-Swin-Base | **59.1**/**59.5** | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/mmdetection_cpts/htc_cbv2_swin_base_giou_4conv1f_bigdet_coco-ft_20e.pth)/[config](configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_bigdet.py) |
+| CBNetV2-Swin-Base (TTA) | **59.5**/**59.8** | [config](configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_bigdet.py) |
+
+### Data Efficiency
+We followed [STAC](https://arxiv.org/abs/2005.04757) and [SoftTeacher](https://arxiv.org/abs/2106.09018) to evaluate on COCO for different partial annotation settings.
+
+| Method | mAP (1%) | mAP (2%) | mAP (5%) | mAP (10%) |
+| --- | :---: | :---: | :---: | :---: |
+| Baseline | 9.8 | 14.3 | 21.2 | 26.2 |
+| STAC     | 14.0 | 18.3 | 24.4 | 28.6 |
+| SoftTeacher | 20.5 | 26.5 | 30.7 | 34.0 |
+| Ours | **25.3** | **28.1** | **31.9** | **34.1** |
+|  | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/data_efficiency/faster_rcnn_r50_fpn_bigdet_coco-1.pth) | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/data_efficiency/faster_rcnn_r50_fpn_bigdet_coco-2.pth) | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/data_efficiency/faster_rcnn_r50_fpn_bigdet_coco-5.pth) | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/data_efficiency/faster_rcnn_r50_fpn_bigdet_coco-10.pth) |
 
 ### Notes
+- The models following `*` are implemented on another detection codebase [Detectron2](https://github.com/facebookresearch/detectron2). Here we provide the pretrained checkpoints. The results can be reproduced following the installation of [CenterNet2](https://github.com/xingyizhou/CenterNet2) or [Detectron2](https://github.com/facebookresearch/detectron2).
+- Most of models are trained for `8X` schedule on BigDetection.
+- Most of pretrained models are finetuned for `1X` schedule on COCO.
 - `TTA` denotes test time augmentation.
 - Pre-trained models of Swin Transformer can be downloaded from [Swin Transformer for ImageNet Classification](https://github.com/microsoft/Swin-Transformer).
-- More results and models can be found in [model zoo](./model_zoo.md).
 
 ## Getting Started
 
@@ -54,10 +81,15 @@ conda install pytorch==1.8.0 torchvision==0.9.0 cudatoolkit=10.2 -c pytorch
 pip install mmcv-full==1.3.9 -f https://download.openmmlab.com/mmcv/dist/cu102/torch1.8.0/index.html
 
 # Clone and install
-git clone https://github.com/cailk/BigDetection-MMDet
-cd BigDetection-MMDet
+git clone https://github.com/amazon-research/bigdetection.git
+cd bigdetection
 pip install -r requirements/build.txt
 pip install -v -e .
+
+# Install Apex (optinal)
+git clone https://github.com/NVIDIA/apex
+cd apex
+pip install -v --disable-pip-version-check --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" ./
 ```
 
 ### Data Preparation
@@ -92,15 +124,7 @@ tools/dist_test.sh <CONFIG_FILE> <DET_CHECKPOINT_FILE> <GPU_NUM> --eval bbox
 To train a detector with pre-trained models, run:
 ```
 # multi-gpu training
-tools/dist_train.sh <CONFIG_FILE> <GPU_NUM> 
-```
-
-### Apex
-Following [Swin Transformer for Object Detection](https://github.com/SwinTransformer/Swin-Transformer-Object-Detection) and [CBNetV2](https://github.com/VDIGPKU/CBNetV2), we use apex for mixed precision training by default. To install apex, run:
-```
-git clone https://github.com/NVIDIA/apex
-cd apex
-pip install -v --disable-pip-version-check --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" ./
+tools/dist_train.sh <CONFIG_FILE> <GPU_NUM> --cfg-options load_from=<PRETRAIN_MODEL>
 ```
 
 ## Citation
