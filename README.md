@@ -135,3 +135,17 @@ If you use our dataset for your research, please consider to cite the following 
 }
 ```
 
+## Security
+
+See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
+
+
+## License
+
+This project is licensed under the Apache-2.0 License.
+
+
+## Acknowledgement
+
+We thank the authors releasing [mmdetection](https://github.com/open-mmlab/mmdetection) and [CBNetv2](https://github.com/VDIGPKU/CBNetV2) for object detection research community.
+
