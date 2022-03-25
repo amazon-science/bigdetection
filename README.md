@@ -7,7 +7,7 @@ By [Likun Cai](https://github.com/cailk), Zhi Zhang, Yi Zhu, Li Zhang, Mu Li, Xi
 </div> -->
 ![](./resources/bigdetection.png)
 
-This repo is the official implementation of [BigDetection](http://arxiv.org/). It is based on [mmdetection](https://github.com/open-mmlab/mmdetection) and [CBNetV2](https://github.com/VDIGPKU/CBNetV2).
+This repo is the official implementation of [BigDetection](https://arxiv.org/abs/2203.13249). It is based on [mmdetection](https://github.com/open-mmlab/mmdetection) and [CBNetV2](https://github.com/VDIGPKU/CBNetV2).
 
 ## Introduction
 We construct a new large-scale benchmark termed *BigDetection*. Our goal is to simply leverage the training data from existing datasets ([LVIS](https://www.lvisdataset.org/), [OpenImages](https://storage.googleapis.com/openimages/web/index.html) and [Object365](https://www.objects365.org/overview.html)) with carefully designed principles, and curate a larger dataset for improved detector pre-training. BigDetection dataset has 600 object categories and contains 3.4M training images with 36M object bounding boxes. We show some important statistics of BigDetection in the following figure.
@@ -51,7 +51,7 @@ We followed [STAC](https://arxiv.org/abs/2005.04757) and [SoftTeacher](https://a
 | --- | :---: | :---: | :---: | :---: |
 | Baseline | 9.8 | 14.3 | 21.2 | 26.2 |
 | STAC     | 14.0 | 18.3 | 24.4 | 28.6 |
-| SoftTeacher | 20.5 | 26.5 | 30.7 | 34.0 |
+| SoftTeacher (ICCV 21) | 20.5 | 26.5 | 30.7 | 34.0 |
 | Ours | **25.3** | **28.1** | **31.9** | **34.1** |
 |  | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/data_efficiency/faster_rcnn_r50_fpn_bigdet_coco-1.pth) | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/data_efficiency/faster_rcnn_r50_fpn_bigdet_coco-2.pth) | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/data_efficiency/faster_rcnn_r50_fpn_bigdet_coco-5.pth) | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/data_efficiency/faster_rcnn_r50_fpn_bigdet_coco-10.pth) |
 
@@ -128,10 +128,14 @@ tools/dist_train.sh <CONFIG_FILE> <GPU_NUM> --cfg-options load_from=<PRETRAIN_MO
 ```
 
 ## Citation
-If you use our dataset for your research, please consider to cite the following paper.
+
+If you use our dataset or pretrained models in your research, please kindly consider to cite the following paper.
 ```
-@article{,
-  title={BigDetection: A Large-scale Benchmark forImproved Object Detector Pre-training}, 
+@article{bigdetection2022,
+  title={BigDetection: A Large-scale Benchmark for Improved Object Detector Pre-training},
+  author={Likun Cai and Zhi Zhang and Yi Zhu and Li Zhang and Mu Li and Xiangyang Xue},
+  journal={arXiv preprint arXiv:2203.13249},
+  year={2022}
 }
 ```
 
