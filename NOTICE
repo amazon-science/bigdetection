@@ -1,0 +1,4 @@
+BigDetection
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+Our project is mainly based on MMDetection codebase (https://github.com/open-mmlab/mmdetection). In order to train models on large combined dataset, we modify original distributed_sampler.py file in MMDetection (https://github.com/open-mmlab/mmdetection/blob/master/mmdet/datasets/samplers/distributed_sampler.py) to our distributed_classaware_sampler.py file (https://github.com/amazon-research/bigdetection/blob/main/mmdet/datasets/samplers/distributed_classaware_sampler.py). Other parts remain the same as MMDetection. All the files under configs folder are just configurations for training different models.
