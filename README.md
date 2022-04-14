@@ -126,6 +126,14 @@ To train a detector with pre-trained models, run:
 # multi-gpu training
 tools/dist_train.sh <CONFIG_FILE> <GPU_NUM> --cfg-options load_from=<PRETRAIN_MODEL>
 ```
+For example, to train a CBNetV2 with a Swin-Base backbone, run:
+```
+tools/dist_train.sh configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_bigdet.py 8 --cfg-options load_from=<PRETRAIN_MODEL>
+```
+Another example, to train a Deformable-DETR with a ResNet-50 backbone, run:
+```
+tools/dist_train.sh configs/BigDetection/deformable_detr/deformable_detr_r50_16x2_8x_bigdet.py 8
+```
 
 ## Citation
 
