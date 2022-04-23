@@ -125,7 +125,7 @@ test_pipeline = [
 ]
 
 samples_per_gpu=2
-num_nodes=5
+num_nodes=1 # for multi-machine parallel training
 
 data = dict(
     samples_per_gpu=samples_per_gpu,

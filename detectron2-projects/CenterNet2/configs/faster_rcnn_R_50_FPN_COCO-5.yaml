@@ -1,0 +1,4 @@
+_BASE_: "faster_rcnn_R_50_FPN_COCO-1.yaml"
+DATASETS:
+  TRAIN: ("coco_2017_train_@5",)
+OUTPUT_DIR: "./output/faster_rcnn_RPN_coco-5/"
