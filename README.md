@@ -56,7 +56,7 @@ We followed [STAC](https://arxiv.org/abs/2005.04757) and [SoftTeacher](https://a
 |  | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/data_efficiency/faster_rcnn_r50_fpn_bigdet_coco-1.pth) | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/data_efficiency/faster_rcnn_r50_fpn_bigdet_coco-2.pth) | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/data_efficiency/faster_rcnn_r50_fpn_bigdet_coco-5.pth) | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/data_efficiency/faster_rcnn_r50_fpn_bigdet_coco-10.pth) |
 
 ### Notes
-- The models following `*` are implemented on another detection codebase [Detectron2](https://github.com/facebookresearch/detectron2). Here we provide the pretrained checkpoints. The results can be reproduced following the installation of [CenterNet2](https://github.com/xingyizhou/CenterNet2) or [Detectron2](https://github.com/facebookresearch/detectron2).
+- The models following `*` are implemented on another detection codebase [Detectron2](https://github.com/facebookresearch/detectron2). Here we provide the pretrained checkpoints. The results can be reproduced following the installation of [CenterNet2](https://github.com/xingyizhou/CenterNet2) codebase.
 - Most of models are trained for `8X` schedule on BigDetection.
 - Most of pretrained models are finetuned for `1X` schedule on COCO.
 - `TTA` denotes test time augmentation.
@@ -110,22 +110,62 @@ bigdetection/data
     └── val
 ```
 
-### Inference
-```
-# single-gpu testing
-python tools/test.py <CONFIG_FILE> <DET_CHECKPOINT_FILE> --eval bbox 
-
-# multi-gpu testing
-tools/dist_test.sh <CONFIG_FILE> <DET_CHECKPOINT_FILE> <GPU_NUM> --eval bbox
-```
-
-### Training
+## Training
 
 To train a detector with pre-trained models, run:
 ```
 # multi-gpu training
 tools/dist_train.sh <CONFIG_FILE> <GPU_NUM> --cfg-options load_from=<PRETRAIN_MODEL>
 ```
+
+***Pre-training***
+
+To pre-train a CBNetV2 with a Swin-Base backbone on BigDetection using 8 GPUs, run: (`PRETRAIN_MODEL` should be pre-trained checkpoint of Base-Swin-Transformer: [model](https://github.com/SwinTransformer/storage/releases/download/v1.0.0/swin_base_patch4_window7_224_22k.pth))
+```
+tools/dist_train.sh configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_bigdet.py 8 \
+    --cfg-options load_from=<PRETRAIN_MODEL>
+```
+To pre-train a Deformable-DETR with a ResNet-50 backbone on BigDetection, run:
+```
+tools/dist_train.sh configs/BigDetection/deformable_detr/deformable_detr_r50_16x2_8x_bigdet.py 8
+```
+
+***Fine-tuning***
+
+To fine-tune a BigDetection pre-trained CBNetV2 (with Swin-Base backbone) on COCO, run: (`PRETRAIN_MODEL` should be BigDetection pre-trained checkpoint of CBNetV2: [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/mmdetection_cpts/htc_cbv2_swin_base_giou_4conv1f_bigdet.pth))
+```
+tools/dist_train.sh configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_20e_coco.py 8 \
+    --cfg-options load_from=<PRETRAIN_MODEL>
+```
+
+## Inference
+To evaluate a detector with pre-trained checkpoints, run:
+```
+tools/dist_test.sh <CONFIG_FILE> <CHECKPOINT> <GPU_NUM> --eval bbox
+```
+
+***BigDetection evaluation***
+
+To evaluate pre-trained CBNetV2 on BigDetection validation, run:
+```
+tools/dist_test.sh configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_bigdet.py \
+    <BIGDET_PRETRAIN_CHECKPOINT> 8 --eval bbox
+```
+
+***COCO evaluation***
+
+To evaluate COCO-finetuned CBNetV2 on COCO validation, run:
+```
+# without test-time-augmentation
+tools/dist_test.sh configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_20e_coco.py \
+    <COCO_FINETUNE_CHECKPOINT> 8 --eval bbox mask
+
+# with test-time-augmentation
+tools/dist_test.sh configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_20e_coco_tta.py \
+    <COCO_FINETUNE_CHECKPOINT> 8 --eval bbox mask
+```
+
+Other configuration based on Detectron2 can be found at [detectron2-probject](detectron2-projects/CenterNet2/README.md).
 
 ## Citation
 

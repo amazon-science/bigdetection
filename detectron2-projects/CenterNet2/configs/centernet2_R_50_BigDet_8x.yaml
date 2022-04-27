@@ -1,0 +1,14 @@
+_BASE_: "Base-CenterNet2.yaml"
+MODEL:
+  ROI_HEADS:
+    NUM_CLASSES: 600
+  CENTERNET:
+    NUM_CLASSES: 600
+DATASETS:
+  TRAIN: ("bigdet_obj_train", "bigdet_oid_train", "bigdet_lvis_train")
+  TEST: ("bigdet_val",)
+DATALOADER:
+  SAMPLER_TRAIN: "ClassAwareSampler"
+SOLVER:
+  STEPS: (660000, 700000)
+  MAX_ITER: 720000

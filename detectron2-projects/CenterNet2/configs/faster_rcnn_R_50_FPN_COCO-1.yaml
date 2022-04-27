@@ -1,0 +1,13 @@
+_BASE_: "Base-RCNN-FPN.yaml"
+MODEL:
+  WEIGHTS: "faster_rcnn_r50_fpn_bigdet_8x.pth"
+DATASETS:
+  TRAIN: ("coco_2017_train_@1",)
+SOLVER:
+  RESET_ITER: True
+  IMS_PER_BATCH: 40
+  BASE_LR: 0.001
+  CHECKPOINT_PERIOD: 50
+  WARMUP_ITERS: 0
+  MAX_ITER: 5000
+OUTPUT_DIR: "./output/faster_rcnn_RPN_coco-1/"
