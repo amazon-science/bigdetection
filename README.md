@@ -165,7 +165,7 @@ tools/dist_test.sh configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_
     <COCO_FINETUNE_CHECKPOINT> 8 --eval bbox mask
 ```
 
-Other configuration based on Detectron2 can be found at []().
+Other configuration based on Detectron2 can be found at [detectron2-probject](detectron2-projects/CenterNet2/README.md).
 
 ## Citation
 
