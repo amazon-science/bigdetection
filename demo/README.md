@@ -38,6 +38,8 @@ This is a bigdetection demo.
 python demo/image_demo.py demo/demo.jpg configs/BigDetection/yolov3/yolov3_d53_mstrain-608_1x_coco.py checkpoints/yolov3_d53_fp16_mstrain-608_273e_coco_20210517_213542-4bc34944.pth
 ```
 
+-- Offered by our bigdetection contributor
+
 ```
 python demo/image_demo.py demo/demo.jpg configs/BigDetection/yolov3/yolov3_d53_mstrain-608_8x_bigdet.py checkpoints/yolov3_d53_bigdet_8x.pth
 ```
