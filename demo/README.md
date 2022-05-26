@@ -52,20 +52,3 @@ python demo/image_demo.py demo/demo.jpg configs/BigDetection/deformable_detr/def
 python demo/image_demo.py demo/demo.jpg configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_bigdet.py checkpoints/htc_cbv2_swin_base_giou_4conv1f_bigdet.pth
 ```
 
-##### Examples:
-
-yolov3_mmdet
-
-![yolov3_mmdet](yolov3_mmdet.png)
-
-yolov3_bigdet
-
-![yolov3_bigdet](yolov3_bigdet.png)
-
-detr_bigdet
-
-![detr_bigdet](detr_bigdet.png)
-
-cbvnet_bigdet
-
-![cbvnet_bigdet](cbvnet_bigdet.png)
