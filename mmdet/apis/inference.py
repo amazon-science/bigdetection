@@ -41,7 +41,11 @@ def init_detector(config, checkpoint=None, device='cuda:0', cfg_options=None):
         map_loc = 'cpu' if device == 'cpu' else None
         checkpoint = load_checkpoint(model, checkpoint, map_location=map_loc)
         if 'CLASSES' in checkpoint.get('meta', {}):
-            model.CLASSES = checkpoint['meta']['CLASSES']
+            # model.CLASSES = checkpoint['meta']['CLASSES']
+            if len(checkpoint['meta']['CLASSES']) == 600:
+                model.CLASSES = get_classes('bigdetection') # The order of CLASSES saved in checkpoint.meta in wrong.
+            else:
+                model.CLASSES = checkpoint['meta']['CLASSES']
         else:
             warnings.simplefilter('once')
             warnings.warn('Class names are not saved in the checkpoint\'s '
